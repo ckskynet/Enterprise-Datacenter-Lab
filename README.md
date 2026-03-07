@@ -42,23 +42,38 @@ DMZ -- 10.0.30.1
 
 ------------------------------------------------------------------------
 
-# Network Diagram
+```mermaid
+flowchart TB
 
-                    Internet
-                       │
-                    OPNsense
-               ┌───────┼────────┐
-               │       │        │
-             LAN    SERVERS    DMZ
-          10.0.10   10.0.20   10.0.30
-               │       │        │
-            Kali      DC1      web1
-               │       │        │
-          Workstation  │        │
-               │       │        │
-               └────── Logs ────┘
-                       │
-                    Wazuh SIEM
+Internet((Internet))
+
+Firewall[OPNsense Firewall]
+
+subgraph LAN 10.0.10.0/24
+Kali[Kali Attacker<br>10.0.10.100]
+Workstation[Windows Workstation<br>10.0.10.51]
+end
+
+subgraph SERVERS 10.0.20.0/24
+DC[Domain Controller<br>10.0.20.10]
+SIEM[Wazuh SIEM<br>10.0.20.20]
+end
+
+subgraph DMZ 10.0.30.0/24
+Web[Ubuntu Web Server<br>10.0.30.10]
+end
+
+Internet --> Firewall
+Firewall --> Kali
+Firewall --> Workstation
+Firewall --> DC
+Firewall --> SIEM
+Firewall --> Web
+
+Web --> SIEM
+DC --> SIEM
+Workstation --> SIEM
+```
 
 ------------------------------------------------------------------------
 
