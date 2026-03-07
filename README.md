@@ -1,82 +1,305 @@
-# Enterprise-Datacenter-Lab
-Designed and deployed a virtual enterprise datacenter lab using OPNsense and Windows Server to simulate a small business network. Implemented segmented networks, domain services, and centralized infrastructure to practice enterprise system administration and cybersecurity concepts.
+# Enterprise Datacenter Lab
 
-## Objectives
-- Build an enterprise-style virtual lab
-- Practice network segmentation and firewall administration
-- Deploy Windows Server infrastructure services
-- Configure domain-based management
-- Improve hands-on cybersecurity and systems administration skills
+## Overview
 
-## Technologies Used
-- VirtualBox
-- OPNsense
-- Windows Server
-- Windows client systems
-- Linux administration client
-- Active Directory Domain Services
-- DNS
-- DHCP
-- Firewall rules / routing / NAT
+This project documents the design and implementation of a **mini
+enterprise cybersecurity lab environment** built in a home lab using
+virtualization.
 
-## Lab Architecture
-The lab was designed with OPNsense as the perimeter firewall/router between the WAN and internal networks. Internal resources were separated into trusted and isolated segments to simulate enterprise network design. Windows Server was used to provide centralized identity and core infrastructure services.
+The objective of the lab is to simulate a realistic corporate network
+with segmentation, identity management, security monitoring, and attack
+detection.
 
-## Network Design
-- WAN: Upstream network connection
-- LAN: Trusted internal server / management segment
-- LAB_DMZ: Isolated client/testing segment
-- Domain: `corp.home.arpa`
+The lab includes:
 
-## Implementation Summary
-### Phase 1: Planning
-- Defined scope, topology, and addressing strategy
+-   **Enterprise-style network segmentation**
+-   **Active Directory domain infrastructure**
+-   **DMZ web server deployment**
+-   **SIEM monitoring with Wazuh**
+-   **Intrusion detection using Suricata**
+-   **Attack simulation using Kali Linux**
 
-### Phase 2: Firewall Deployment
-- Installed and configured OPNsense
-- Assigned interfaces and configured internal routing
-- Created initial firewall policies
+This environment allows hands-on practice with **network security, SOC
+monitoring, incident analysis, and attack detection workflows**.
 
-### Phase 3: Core Infrastructure
-- Deployed Windows Server
-- Configured Active Directory, DNS, and DHCP
-- Established domain services for the lab
+------------------------------------------------------------------------
 
-### Phase 4: Endpoint Deployment
-- Installed client systems
-- Connected endpoints to designated network segments
-- Validated connectivity and service access
+# Network Architecture
 
-### Phase 5: Testing and Validation
-- Tested segmentation behavior
-- Verified name resolution and routing
-- Confirmed access to internal services
+The environment is segmented into three core networks:
 
-## Challenges Encountered
-- Resolved routing and gateway assignment issues during initial configuration
-- Troubleshot management connectivity to OPNsense from client systems
-- Refined internal segmentation strategy between LAN and LAB_DMZ
-- Worked around virtualization constraints for certain Windows client images
+  Network  | Purpose                              | Subnet
+  ---------|--------------------------------------|--------------
+  LAN      | User devices and attacker simulation |  10.0.10.0/24
+  SERVERS  | Infrastructure services              |  10.0.20.0/24
+  DMZ      | Public-facing services               |  10.0.30.0/24
 
-## Security Concepts Demonstrated
-- Network segmentation
-- Firewall policy enforcement
-- Centralized identity management
-- Secure internal service deployment
-- Administrative troubleshooting in an enterprise-style environment
+Firewall gateways:
 
-## Results
-The completed lab provides a working enterprise-style environment for practicing system administration, network engineering, and cybersecurity concepts in a controlled virtual setting.
+LAN -- 10.0.10.1\
+SERVERS -- 10.0.20.1\
+DMZ -- 10.0.30.1
 
-## Lessons Learned
-- Proper IP planning simplifies multi-network deployments
-- DNS and routing are critical to Windows-based infrastructure
-- Segmentation design directly affects usability and security
-- Hands-on troubleshooting is essential in lab development
+------------------------------------------------------------------------
 
-## Future Improvements
-- Add SIEM/log collection
-- Implement vulnerability scanning
-- Deploy additional DMZ services
-- Expand hardening and monitoring controls
-- Add VPN-based remote access
+# Network Diagram
+
+                    Internet
+                       │
+                    OPNsense
+               ┌───────┼────────┐
+               │       │        │
+             LAN    SERVERS    DMZ
+          10.0.10   10.0.20   10.0.30
+               │       │        │
+            Kali      DC1      web1
+               │       │        │
+          Workstation  │        │
+               │       │        │
+               └────── Logs ────┘
+                       │
+                    Wazuh SIEM
+
+------------------------------------------------------------------------
+
+# Technologies Used
+
+  Technology      |Purpose
+  ----------------|------------------------------------
+  OPNsense        |Firewall / network segmentation
+  Windows Server  |Active Directory Domain Controller
+  Ubuntu Server   |DMZ web server
+  Apache          |Web service hosting
+  Wazuh           |SIEM platform
+  Suricata        |Intrusion detection
+  Kali Linux      |Attack simulation
+  VirtualBox      |Virtualization platform
+
+------------------------------------------------------------------------
+
+# Project Implementation
+
+## Phase 1 -- Network Architecture
+
+Designed a segmented network environment to simulate enterprise
+infrastructure.
+
+Networks created:
+
+-   LAN (10.0.10.0/24)
+-   SERVERS (10.0.20.0/24)
+-   DMZ (10.0.30.0/24)
+
+This segmentation separates internal user systems, infrastructure
+servers, and externally exposed services.
+
+------------------------------------------------------------------------
+
+## Phase 2 -- Firewall Deployment
+
+Installed and configured **OPNsense firewall**.
+
+Interfaces configured:
+
+WAN -- DHCP\
+LAN -- 10.0.10.1\
+SERVERS -- 10.0.20.1\
+DMZ -- 10.0.30.1
+
+The firewall provides routing, NAT, and network isolation.
+
+------------------------------------------------------------------------
+
+## Phase 3 -- Network Services
+
+Configured DHCP services on OPNsense for each subnet.
+
+Example DHCP ranges:
+
+LAN -- 10.0.10.50--100\
+SERVERS -- 10.0.20.50--100\
+DMZ -- 10.0.30.50--100
+
+This allows automated IP address allocation for network hosts.
+
+------------------------------------------------------------------------
+
+## Phase 4 -- Active Directory Deployment
+
+Deployed **Windows Server Domain Controller**.
+
+Domain created:
+
+corp.home.arpa
+
+Domain Controller:
+
+dc1 -- 10.0.20.10
+
+Services deployed:
+
+-   Active Directory Domain Services
+-   DNS
+-   Group Policy
+
+------------------------------------------------------------------------
+
+## Phase 5 -- Domain Workstation
+
+A Windows workstation was deployed and successfully joined to the
+domain.
+
+Example domain login:
+
+CORP`\alice`
+
+This verified that domain authentication and DNS resolution were
+functioning correctly.
+
+------------------------------------------------------------------------
+
+## Phase 6 -- DMZ Server Deployment
+
+Deployed Ubuntu Server in the DMZ network.
+
+Configuration:
+
+Hostname -- web1\
+IP -- 10.0.30.10
+
+Installed Apache web server to simulate a public-facing web service.
+
+------------------------------------------------------------------------
+
+## Phase 7 -- Group Policy Security
+
+Implemented baseline security policies within Active Directory.
+
+Examples include:
+
+-   Password complexity enforcement
+-   Account lockout policies
+-   Domain security baseline configuration
+
+These policies simulate enterprise endpoint security management.
+
+------------------------------------------------------------------------
+
+## Phase 8 -- DMZ Application Deployment
+
+Configured web services on the DMZ server.
+
+Applications installed:
+
+-   Apache
+-   Vulnerable web applications (DVWA / Juice Shop)
+
+These applications provide targets for attack simulation and
+vulnerability testing.
+
+------------------------------------------------------------------------
+
+## Phase 9 -- SIEM Deployment
+
+Installed **Wazuh SIEM** on an internal server.
+
+SIEM Server:
+
+10.0.20.20
+
+Connected monitored systems:
+
+-   Ubuntu DMZ server
+-   Domain systems
+-   Firewall logs
+
+This enables centralized log analysis and security event monitoring.
+
+------------------------------------------------------------------------
+
+## Phase 10 -- Attack Simulation
+
+Deployed Kali Linux attacker system.
+
+Attacker host:
+
+10.0.10.100
+
+Attack simulations performed:
+
+-   Network reconnaissance using Nmap
+-   Web vulnerability scanning using Nikto
+-   Directory enumeration
+-   Credential brute-force attempts
+
+These activities generate detectable events within the SIEM.
+
+------------------------------------------------------------------------
+
+## Phase 11 -- Intrusion Detection
+
+Enabled Suricata IDS within OPNsense.
+
+Detection rules include:
+
+-   Port scan detection
+-   Exploit signatures
+-   Web attack signatures
+-   Malware traffic indicators
+
+Suricata analyzes network traffic in real time and generates alerts when
+malicious patterns are detected.
+
+------------------------------------------------------------------------
+
+# Security Monitoring Workflow
+
+Example detection process:
+
+1.  Attacker runs scan from Kali
+2.  Traffic passes through OPNsense
+3.  Suricata analyzes packets
+4.  Events logged in Wazuh SIEM
+5.  Security alerts appear in monitoring dashboard
+
+This workflow simulates real **Security Operations Center (SOC)
+monitoring processes**.
+
+------------------------------------------------------------------------
+
+# Skills Demonstrated
+
+This project demonstrates experience with:
+
+-   Network segmentation
+-   Firewall configuration
+-   Active Directory administration
+-   DMZ architecture
+-   SIEM deployment
+-   Intrusion detection systems
+-   Attack simulation
+-   Security monitoring workflows
+
+------------------------------------------------------------------------
+
+# Future Improvements
+
+Potential enhancements include:
+
+-   Vulnerability scanning with OpenVAS
+-   Endpoint detection and response tools
+-   Threat intelligence integration
+-   Automated attack detection rules
+-   Blue team incident response scenarios
+
+------------------------------------------------------------------------
+
+# Conclusion
+
+This lab environment provides a **realistic enterprise cybersecurity
+simulation** for practicing network defense, monitoring security events,
+and analyzing attack activity.
+
+The environment demonstrates the interaction between **attack techniques
+and defensive monitoring systems**, closely resembling a small-scale
+enterprise SOC environment.
