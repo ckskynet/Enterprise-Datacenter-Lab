@@ -24,6 +24,8 @@ virtualization via VirtualBox.
 | Wazuh SIEM | Security monitoring | SERVERS |
 | Kali Linux | Attack simulation | LAN |
 
+## Objective
+
 The objective of the lab is to simulate a realistic corporate network
 with segmentation, identity management, security monitoring, and attack
 detection.
