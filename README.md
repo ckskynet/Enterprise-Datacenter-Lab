@@ -230,7 +230,8 @@ Connected monitored systems:
 
 This enables centralized log analysis and security event monitoring.
 
-
+Wazuh SIEM Connected Agents, Focused on the LTS Server (Linux Web Server)
+<img src="
 
 ------------------------------------------------------------------------
 
