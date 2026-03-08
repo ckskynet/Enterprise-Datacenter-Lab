@@ -230,6 +230,9 @@ Connected monitored systems:
 
 This enables centralized log analysis and security event monitoring.
 
+Wazuh SIEM Connected Agents, Focused on the LTS Server (Linux Web Server)
+<img src="
+
 ------------------------------------------------------------------------
 
 ## Phase 10 -- Attack Simulation
@@ -249,6 +252,12 @@ Attack simulations performed:
 
 These activities generate detectable events within the SIEM.
 
+A network reconnaissance being performed by Nmap on the Linux Web Server:
+<img src="screenshots/nmapscan.png" alt="an nmap scan being initiated by kali">
+
+A web vulnerability scan being ran by Nikto on the Linux Web Server:
+<img src="screenshots/niktorecon.png" alt="a nikto recon being initiated by kali">
+
 ------------------------------------------------------------------------
 
 ## Phase 11 -- Intrusion Detection
@@ -264,6 +273,15 @@ Detection rules include:
 
 Suricata analyzes network traffic in real time and generates alerts when
 malicious patterns are detected.
+
+This Suricata alert was triggered by the Nmap scan in Phase 10:
+<img src="screenshots/nmapIDS.png" alt="the Suricata IDS detecting and alerting for the nmap scan that occurred in phase 10">
+
+This Suricata alert was triggered by the web vulnerability scan performed by Nikto in Phase 10:
+<img src="screenshots/niktoIDS.png" alt="the Suricata IDS detecting and triggering an alert for the Nikto scan in phase 10">
+
+The Wazuh dashboard triggering alerts for the Nikto scan performed in Phase 10:
+<img src="screenshots/wazuhdashboard.png" alt="Wazuh detecting and triggering alerts for the Nikto scan in phase 10">
 
 ------------------------------------------------------------------------
 
