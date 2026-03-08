@@ -95,6 +95,9 @@ DC --> SIEM
 Workstation --> SIEM
 ```
 
+Visual version of the network diagram:
+<img src="diagrams/Lab Network.png" alt="Diagram of the home lab datacenter network">
+
 ------------------------------------------------------------------------
 
 # Technologies Used
