@@ -4,12 +4,25 @@
 
 This project documents the design and implementation of a **mini
 enterprise cybersecurity lab environment** built in a home lab using
-virtualization via Virtualbox.
+virtualization via VirtualBox.
 
-Host Machine Specs:
-CPU - Intel i5-13600KF
-RAM - 32 GB
-Active VMs - 5 Machines (OPNsense, Windows Server, Linux Web Server, Linux SIEM Server, Kali Attacker)
+## Host Machine
+
+| Component | Spec |
+|-----------|------|
+| CPU | Intel i5-13600KF |
+| RAM | 32 GB |
+
+## Virtual Machines
+
+| VM | Role | Network |
+|----|------|---------|
+| OPNsense | Firewall | All segments |
+| Windows Server | Domain Controller | SERVERS |
+| Windows Workstation | Domain endpoint | LAN |
+| Ubuntu Server | DMZ web server | DMZ |
+| Wazuh SIEM | Security monitoring | SERVERS |
+| Kali Linux | Attack simulation | LAN |
 
 The objective of the lab is to simulate a realistic corporate network
 with segmentation, identity management, security monitoring, and attack
@@ -269,7 +282,7 @@ These activities generate detectable events within the SIEM.
 A network reconnaissance being performed by Nmap on the Linux Web Server:
 <img src="screenshots/nmapscan.png" alt="an nmap scan being initiated by kali">
 
-A web vulnerability scan being ran by Nikto on the Linux Web Server:
+A web vulnerability scan being run by Nikto on the Linux Web Server:
 <img src="screenshots/niktorecon.png" alt="a nikto recon being initiated by kali">
 
 ------------------------------------------------------------------------
