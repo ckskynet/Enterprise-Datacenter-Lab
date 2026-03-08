@@ -50,7 +50,7 @@ Internet((Internet))
 Firewall[OPNsense Firewall]
 
 subgraph LAN 10.0.10.0/24
-Kali[Kali Attacker<br>10.0.10.100]
+Kali[Kali Attacker (Simulated post-breach lateral movement)<br>10.0.10.100]
 Workstation[Windows Workstation<br>10.0.10.51]
 end
 
@@ -122,6 +122,9 @@ SERVERS -- 10.0.20.1\
 DMZ -- 10.0.30.1
 
 The firewall provides routing, NAT, and network isolation.
+
+Firewall configuration for LAN:
+<img src="screenshots/firewallruleLAN.png">
 
 ------------------------------------------------------------------------
 
