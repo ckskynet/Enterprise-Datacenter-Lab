@@ -4,7 +4,12 @@
 
 This project documents the design and implementation of a **mini
 enterprise cybersecurity lab environment** built in a home lab using
-virtualization.
+virtualization via Virtualbox.
+
+Host Machine Specs:
+CPU - Intel i5-13600KF
+RAM - 32 GB
+Active VMs - 5 Machines (OPNsense, Windows Server, Linux Web Server, Linux SIEM Server, Kali Attacker)
 
 The objective of the lab is to simulate a realistic corporate network
 with segmentation, identity management, security monitoring, and attack
